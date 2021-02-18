@@ -1,5 +1,7 @@
 package com.curso.resources;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -19,12 +21,12 @@ public class CategoriaResource {
 	private CategoriaService service;
 
 	@GetMapping
-	public String teste() {
-		return "Teste OK!";
+	public ResponseEntity<List<Categoria>> teste() {
+		return ResponseEntity.ok().body(service.findAll());
 	}
 	
 	@GetMapping("{id}")
-	@PreAuthorize("hasAnyRole('ADMIN')")
+	@PreAuthorize("hasAuthority('ADMIN')")
 	public ResponseEntity<Categoria> findById(@PathVariable Long id) {
 		return ResponseEntity.ok().body(service.findById(id));
 	}
