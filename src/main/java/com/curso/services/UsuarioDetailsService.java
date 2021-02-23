@@ -3,12 +3,10 @@ package com.curso.services;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 
-import com.curso.exceptions.CustomException;
 import com.curso.models.Usuario;
 import com.curso.models.security.UsuarioDetails;
 import com.curso.repositories.UsuarioRepository;
@@ -30,7 +28,7 @@ public class UsuarioDetailsService implements UserDetailsService {
 					usuario.getAtivo(), false, false, true, usuario.getNivel().name());
 			return userDetails;
 		} catch (Exception e) {
-			throw new CustomException("Usuário ou senha inválidos.", HttpStatus.UNAUTHORIZED);
+			throw new RuntimeException();
 		}
 
 	}

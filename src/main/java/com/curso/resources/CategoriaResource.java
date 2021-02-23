@@ -15,18 +15,20 @@ import com.curso.services.CategoriaService;
 
 @RestController
 @RequestMapping(value = "categorias")
+@PreAuthorize("hasAuthority('ADMIN')")
 public class CategoriaResource {
 	
 	@Autowired
 	private CategoriaService service;
 
 	@GetMapping
+	
 	public ResponseEntity<List<Categoria>> teste() {
 		return ResponseEntity.ok().body(service.findAll());
 	}
 	
 	@GetMapping("{id}")
-	@PreAuthorize("hasAuthority('ADMIN')")
+
 	public ResponseEntity<Categoria> findById(@PathVariable Long id) {
 		return ResponseEntity.ok().body(service.findById(id));
 	}

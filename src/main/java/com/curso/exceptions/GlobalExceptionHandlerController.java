@@ -16,60 +16,60 @@ import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 
 @RestControllerAdvice
 public class GlobalExceptionHandlerController {
-	
+
 	private final Logger LOG = LoggerFactory.getLogger(getClass());
 
 	// Exception lançado manualmente
-    @ExceptionHandler(CustomException.class)
-    public ResponseEntity<Response<?>> handleCustomException(CustomException e) throws IOException {
-    	Response<?> response = new Response<>();
-    	String msg = e.getMessage();
-    	if(e.getHttpStatus() == HttpStatus.NOT_FOUND) {
-    		LOG.error("ERRO: " + msg);
-    		msg = "Not found";
-    	}
-    	LOG.error("ERRO: " + msg);
-    	response.getErrors().add(msg);
-        return ResponseEntity.status(e.getHttpStatus()).body(response);
-    }
+	@ExceptionHandler(CustomException.class)
+	public ResponseEntity<Response<?>> handleCustomException(CustomException e) throws IOException {
+		Response<?> response = new Response<>();
+		String msg = e.getMessage();
+		if (e.getHttpStatus() == HttpStatus.NOT_FOUND) {
+			LOG.error("ERRO: " + msg);
+			msg = "Not found";
+		}
+		LOG.error("ERRO: " + msg);
+		response.getErrors().add(msg);
+		return ResponseEntity.status(e.getHttpStatus()).body(response);
+	}
 
-    // Exception para acesso negado
-    @ExceptionHandler(AccessDeniedException.class)
-    public ResponseEntity<Response<?>> handleAccessDeniedException(AccessDeniedException e) throws IOException {
-    	Response<?> response = new Response<>();
-    	String msg = "Acesso Negado.";
-    	LOG.error("ERRO: " + msg);
-    	response.getErrors().add(msg);
-        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(response);
-    }
+	// Exception para acesso negado
+	@ExceptionHandler(AccessDeniedException.class)
+	public ResponseEntity<Response<?>> handleAccessDeniedException(AccessDeniedException e) throws IOException {
+		Response<?> response = new Response<>();
+		String msg = "Acesso Negado.";
+		LOG.error("ERRO: " + msg);
+		response.getErrors().add(msg);
+		return ResponseEntity.status(HttpStatus.FORBIDDEN).body(response);
+	}
 
-    @ExceptionHandler(IllegalArgumentException.class)
-    public ResponseEntity<Response<?>> handleIllegalArgumentException(IllegalArgumentException e) throws IOException {
-    	Response<?> response = new Response<>();
-    	LOG.error("ERROR: " + e);
-    	return ResponseEntity.badRequest().body(response);
-    }
+	@ExceptionHandler(IllegalArgumentException.class)
+	public ResponseEntity<Response<?>> handleIllegalArgumentException(IllegalArgumentException e) throws IOException {
+		Response<?> response = new Response<>();
+		LOG.error("ERROR: " + e);
+		return ResponseEntity.badRequest().body(response);
+	}
 
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<Response<?>> handleException(Exception e) throws IOException {
-    	Response<?> response = new Response<>();
-    	LOG.error("ERROR: " + e);
-    	return ResponseEntity.badRequest().body(response);
-    }
+	@ExceptionHandler(Exception.class)
+	public ResponseEntity<Response<?>> handleException(Exception e) throws IOException {
+		Response<?> response = new Response<>();
+		LOG.error("ERROR: " + e);
+		return ResponseEntity.badRequest().body(response);
+	}
 
-    // Exception para valores inválidos
-    @ExceptionHandler(HttpMessageNotReadableException.class)
-    public ResponseEntity<Response<?>> handleHttpMessageNotReadableException(Exception e) throws IOException {
-        Response<?> response = new Response<>();
-        Throwable cause = e.getCause();
-        InvalidFormatException invalidFormatException = (InvalidFormatException) cause;
-        String msg = "O valor '" + invalidFormatException.getValue() 
-        	+ "' é inválido para o campo " + invalidFormatException.getPath().get(0).getFieldName() + ".";
-        response.getErrors().add(msg);
-        LOG.error("ERRO: " + msg);
-        return ResponseEntity.badRequest().body(response);
-    }
-    
+	// Exception para valores inválidos
+	@ExceptionHandler(HttpMessageNotReadableException.class)
+	public ResponseEntity<Response<?>> handleHttpMessageNotReadableException(Exception e) throws IOException {
+		Response<?> response = new Response<>();
+		Throwable cause = e.getCause();
+		InvalidFormatException invalidFormatException = (InvalidFormatException) cause;
+		String msg = "O valor '" + invalidFormatException.getValue() + "' é inválido para o campo "
+				+ invalidFormatException.getPath().get(0).getFieldName() + ".";
+		response.getErrors().add(msg);
+		LOG.error("ERRO: " + msg);
+		return ResponseEntity.badRequest().body(response);
+	}
+
 	/*
 	 * // Exception para validações como @NotNull @Email...
 	 * 

@@ -9,7 +9,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -35,18 +34,17 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 	}
 
 	@Override
-	public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)
-			throws AuthenticationException {
+	public Authentication attemptAuthentication(HttpServletRequest req, HttpServletResponse res)
+			 {
 
 		try {
-			AuthRequest authRequest = new ObjectMapper().readValue(request.getInputStream(), AuthRequest.class);
+			AuthRequest authRequest = new ObjectMapper().readValue(req.getInputStream(), AuthRequest.class);
 			UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
 					authRequest.getUsername(), authRequest.getPassword(), new ArrayList<>());
 			return authenticationManager.authenticate(authenticationToken);
 		} catch (IOException e) {
-			throw new RuntimeException();
+			throw new RuntimeException(e.getLocalizedMessage());
 		}
-
 	}
 
 	@Override
@@ -57,9 +55,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 		response.addHeader("Authorization", "Bearer " + token);
 		response.addHeader("Access-Control-Expose-Headers", "Authorization");
 	}
-	
-	
-	
+
 	// CLASSE RESPONSÁVEL POR IMPLEMENTAR O AUTHENTICATIONFAILURE
 
 	private class JWTAuthenticationFailureHandler implements AuthenticationFailureHandler {
