@@ -32,7 +32,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private JWTUtil jwtUtil;
 
-	private static final String[] PUBLIC_URL = {"/login/**" };
+	private static final String[] PUBLIC_URL = {"/login/**", "/sign-up/**" };
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {

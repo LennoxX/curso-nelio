@@ -13,7 +13,6 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 
 import com.curso.enums.EnumTipoUsuario;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sun.istack.NotNull;
 
 @Entity
@@ -37,7 +36,6 @@ public class Usuario implements Serializable {
 	@NotEmpty(message = "*Campo 'Password', obrigatório.")
 	@NotBlank
 	@NotNull
-	@JsonIgnore
 	private String password;
 
 	@Enumerated(EnumType.STRING)
@@ -89,5 +87,13 @@ public class Usuario implements Serializable {
 	public void setAtivo(boolean ativo) {
 		this.ativo = ativo;
 	}
+
+	@Override
+	public String toString() {
+		return "Usuario [id=" + id + ", username=" + username + ", password=" + password + ", nivel=" + nivel
+				+ ", ativo=" + ativo + "]";
+	}
+	
+	
 
 }

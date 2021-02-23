@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,10 +16,10 @@ import com.curso.services.UserService;
 @RestController
 @RequestMapping("/auth")
 public class AuthResource {
-	
+
 	@Autowired
 	private UserService service;
-	
+
 	@Autowired
 	private JWTUtil jwtUtil;
 
@@ -29,5 +30,10 @@ public class AuthResource {
 		response.addHeader("Authorization", "Bearer " + token);
 		return ResponseEntity.noContent().build();
 	}
-	
+
+	@GetMapping(value = "/validate")
+	public ResponseEntity<?> validate(HttpServletResponse response) {
+		return ResponseEntity.noContent().build();
+	}
+
 }
