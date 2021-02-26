@@ -32,10 +32,10 @@ public class ProjetoCursoApplication {
 		if (usuarios.isEmpty()) {
 			
 			Usuario usuario = new Usuario();
-			usuario.setUsername("user"); 
-			usuario.setPassword(passwordEncoder.encode("user"));
+			usuario.setUsername("profissional"); 
+			usuario.setPassword(passwordEncoder.encode("profissional"));
 			usuario.setAtivo(true);
-			usuario.setNivel(EnumTipoUsuario.USUARIO);
+			usuario.setNivel(EnumTipoUsuario.PROFISSIONAL);
 
 			repository.save(usuario);
 		}

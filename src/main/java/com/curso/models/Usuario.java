@@ -24,8 +24,8 @@ public class Usuario implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(generator = "cliente_sequence", strategy = GenerationType.SEQUENCE)
-	@SequenceGenerator(name = "cliente_sequence", sequenceName = "cliente_sequence")
+	@GeneratedValue(generator = "usuario_sequence", strategy = GenerationType.SEQUENCE)
+	@SequenceGenerator(name = "usuario_sequence", sequenceName = "usuario_sequence")
 	private Long id;
 
 	@NotEmpty(message = "*Campo 'Username', obrigatório.")

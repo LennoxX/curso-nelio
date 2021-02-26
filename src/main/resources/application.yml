@@ -1,7 +1,7 @@
 spring:
   jwt:
     secret: ApenasParaEncriptar
-    expiration: 30000
+    expiration: 1800000
   main:
     banner-mode: "off"
   jpa:
@@ -15,7 +15,7 @@ spring:
         temp:
           use_jdbc_metadata_defaults: false
   datasource:
-    url: jdbc:postgresql://192.168.0.10:5432/curso
+    url: jdbc:postgresql://192.168.0.10:5432/nutri
     username: pi
     password: postgres
     driver-class-name: org.postgresql.Driver
