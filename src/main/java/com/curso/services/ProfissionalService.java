@@ -9,31 +9,31 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.curso.exceptions.CustomException;
-import com.curso.models.Paciente;
-import com.curso.repositories.PacienteRepository;
+import com.curso.models.Profissional;
+import com.curso.repositories.ProfissionalRepository;
 
 @Service
-public class PacienteService {
+public class ProfissionalService {
 
 	@Autowired
-	private PacienteRepository repository;
+	private ProfissionalRepository repository;
 
-	public List<Paciente> findAll() {
+	public List<Profissional> findAll() {
 		return repository.findAll();
 	}
 
-	public Paciente findById(Long id) {
-		Optional<Paciente> opt = repository.findById(id);
+	public Profissional findById(Long id) {
+		Optional<Profissional> opt = repository.findById(id);
 		return opt.orElseThrow(() -> new CustomException("Paciente não encontrado", HttpStatus.NOT_FOUND));
 	}
 	
-	public Paciente findByUserId(Long userId) {
-		Optional<Paciente> opt = repository.findByUsuarioId(userId);
+	public Profissional findByUserId(Long userId) {
+		Optional<Profissional> opt = repository.findById(userId);
 		return opt.orElseThrow(() -> new CustomException("Paciente não encontrado", HttpStatus.NOT_FOUND));
 	}
 
 	@Transactional
-	public Paciente create(Paciente paciente) {
+	public Profissional create(Profissional paciente) {
 		try {
 			return repository.save(paciente);
 		} catch (Exception e) {
@@ -43,7 +43,7 @@ public class PacienteService {
 	}
 
 	@Transactional
-	public Paciente update(Paciente paciente) {
+	public Profissional update(Profissional paciente) {
 		try {
 			return repository.save(paciente);
 		} catch (Exception e) {

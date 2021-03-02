@@ -34,25 +34,10 @@ public class Usuario implements Serializable {
 	@NotNull
 	private String username;
 
-	@NotEmpty(message = "*Campo 'Nome', obrigatório.")
-	@NotBlank
-	@NotNull
-	private String nome;
-
-	@NotEmpty(message = "*Campo 'Email', obrigatório.")
-	@NotBlank
-	@NotNull
-	private String email;
-
 	@NotEmpty(message = "*Campo 'Password', obrigatório.")
 	@NotBlank
 	@NotNull
 	private String password;
-
-	@NotEmpty(message = "*Campo 'Telefone', obrigatório.")
-	@NotBlank
-	@NotNull
-	private String telefone;
 
 	@Enumerated(EnumType.STRING)
 	@NotNull
@@ -81,22 +66,6 @@ public class Usuario implements Serializable {
 
 	public void setUsername(String username) {
 		this.username = username;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public String getTelefone() {
-		return telefone;
-	}
-
-	public void setTelefone(String telefone) {
-		this.telefone = telefone;
 	}
 
 	public String getPassword() {
@@ -129,14 +98,6 @@ public class Usuario implements Serializable {
 
 	public void setImagemPerfil(String imagemPerfil) {
 		this.imagemPerfil = imagemPerfil;
-	}
-
-	public String getNome() {
-		return nome;
-	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
 	}
 
 	@Override

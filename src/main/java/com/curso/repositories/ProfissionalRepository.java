@@ -5,11 +5,11 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.curso.models.Paciente;
+import com.curso.models.Profissional;
 
 @Repository
-public interface PacienteRepository extends JpaRepository<Paciente, Long> {
+public interface ProfissionalRepository extends JpaRepository<Profissional, Long> {
 	
-	Optional<Paciente> findByUsuarioId(Long usuarioId);
+	Optional<Profissional> findByUsuarioId(Long usuarioId);
 
 }

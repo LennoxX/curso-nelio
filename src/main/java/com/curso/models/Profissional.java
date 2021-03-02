@@ -22,7 +22,7 @@ import javax.validation.constraints.NotNull;
 import com.curso.enums.EnumSexo;
 
 @Entity
-public class Paciente implements Serializable {
+public class Profissional implements Serializable {
 
 	/**
 	 * 
@@ -30,8 +30,8 @@ public class Paciente implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(generator = "paciente_sequence", strategy = GenerationType.SEQUENCE)
-	@SequenceGenerator(name = "paciente_sequence", sequenceName = "paciente_sequence")
+	@GeneratedValue(generator = "profissional_sequence", strategy = GenerationType.SEQUENCE)
+	@SequenceGenerator(name = "profissional_sequence", sequenceName = "profissional_sequence")
 	private Long id;
 
 	@NotEmpty(message = "*Campo 'Nome', obrigatório.")
