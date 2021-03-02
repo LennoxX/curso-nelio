@@ -17,7 +17,7 @@ public class UsuarioResource {
 
 	@PostMapping("/sign-up")
 	public ResponseEntity<Usuario> register(@RequestBody Usuario usuario) {
-		System.out.println(usuario);		
+		System.out.println(usuario);
 		return ResponseEntity.ok().body(this.service.create(usuario));
 	}
 

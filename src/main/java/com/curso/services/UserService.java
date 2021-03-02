@@ -1,5 +1,7 @@
 package com.curso.services;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -27,6 +29,20 @@ public class UserService {
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
+		}
+
+	}
+
+	@Transactional(readOnly = true)
+	public Usuario findByUsername(String username) {
+		try {
+			Optional<Usuario> opt = repository.findByUsername(username);
+			if (opt.isPresent())
+				return opt.get();
+			else
+				throw new CustomException("Usuario não encontrado", HttpStatus.NOT_FOUND);
+		} catch (Exception e) {
+			throw new CustomException(e.getLocalizedMessage(), HttpStatus.BAD_REQUEST);
 		}
 
 	}
