@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -50,11 +51,13 @@ public class Paciente implements Serializable {
 	@NotEmpty(message = "*Campo 'Email', obrigatório.")
 	@NotBlank
 	@NotNull
+	@Column(unique = true)
 	protected String email;
 
 	@NotEmpty(message = "*Campo 'Telefone', obrigatório.")
 	@NotBlank
 	@NotNull
+	@Column(unique = true)
 	protected String telefone;
 
 	@OneToOne(cascade = CascadeType.ALL)

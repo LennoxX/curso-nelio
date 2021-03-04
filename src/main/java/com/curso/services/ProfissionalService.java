@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,6 +18,9 @@ public class ProfissionalService {
 
 	@Autowired
 	private ProfissionalRepository repository;
+	
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 
 	public List<Profissional> findAll() {
 		return repository.findAll();
@@ -33,9 +37,10 @@ public class ProfissionalService {
 	}
 
 	@Transactional
-	public Profissional create(Profissional paciente) {
+	public Profissional create(Profissional profissional) {
 		try {
-			return repository.save(paciente);
+			profissional.getUsuario().setPassword(passwordEncoder.encode(profissional.getUsuario().getPassword()));
+			return repository.save(profissional);
 		} catch (Exception e) {
 			throw new CustomException(e.getLocalizedMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
 		}

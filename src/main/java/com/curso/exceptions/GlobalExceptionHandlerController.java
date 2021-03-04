@@ -1,6 +1,10 @@
 package com.curso.exceptions;
 
 import java.io.IOException;
+import java.util.Set;
+
+import javax.validation.ConstraintViolation;
+import javax.validation.ConstraintViolationException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -8,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.security.access.AccessDeniedException;
+import org.springframework.transaction.TransactionSystemException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -70,19 +75,21 @@ public class GlobalExceptionHandlerController {
 		return ResponseEntity.badRequest().body(response);
 	}
 
-	/*
-	 * // Exception para validações como @NotNull @Email...
-	 * 
-	 * @ExceptionHandler(TransactionSystemException.class) public
-	 * ResponseEntity<Response<?>> handleTransactionSystemException(Exception e)
-	 * throws IOException { Response<?> response = new Response<>(); Throwable cause
-	 * = ((TransactionSystemException) e).getRootCause();
-	 * Set<ConstraintViolation<?>> constraintViolations =
-	 * ((ConstraintViolationException) cause).getConstraintViolations(); String msg
-	 * = ""; for(ConstraintViolation<?> violation : constraintViolations) { msg =
-	 * "O campo " + violation.getPropertyPath().toString() + " " +
-	 * violation.getMessage()+ "."; response.getErrors().add(msg);
-	 * LOG.error("ERRO: " + msg); } return
-	 * ResponseEntity.badRequest().body(response); }
-	 */
+	// Exception para validações como @NotNull @Email...
+
+	@ExceptionHandler(TransactionSystemException.class)
+	public ResponseEntity<Response<?>> handleTransactionSystemException(Exception e) throws IOException {
+		Response<?> response = new Response<>();
+		Throwable cause = ((TransactionSystemException) e).getRootCause();
+		Set<ConstraintViolation<?>> constraintViolations = ((ConstraintViolationException) cause)
+				.getConstraintViolations();
+		String msg = "";
+		for (ConstraintViolation<?> violation : constraintViolations) {
+			msg = "O campo " + violation.getPropertyPath().toString() + " " + violation.getMessage() + ".";
+			response.getErrors().add(msg);
+			LOG.error("ERRO: " + msg);
+		}
+		return ResponseEntity.badRequest().body(response);
+	}
+
 }

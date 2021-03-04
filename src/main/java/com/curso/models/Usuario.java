@@ -32,6 +32,7 @@ public class Usuario implements Serializable {
 	@NotEmpty(message = "*Campo 'Username', obrigatório.")
 	@NotBlank
 	@NotNull
+	@Column(unique = true)
 	private String username;
 
 	@NotEmpty(message = "*Campo 'Password', obrigatório.")
