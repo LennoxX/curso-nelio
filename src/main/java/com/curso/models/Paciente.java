@@ -23,7 +23,7 @@ import javax.validation.constraints.NotNull;
 import com.curso.enums.EnumSexo;
 
 @Entity
-public class Paciente implements Serializable {
+public class Paciente extends Pessoa implements Serializable {
 
 	/**
 	 * 
